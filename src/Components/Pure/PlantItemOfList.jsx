@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 //moment
 import moment from 'moment';
 import { caringPlant } from '../../Store/gardenReducer';
-import { colors } from '../../Models/configs/colors';
+import { colors } from '../../Models/configs/colors.enum';
 
 const PlantItemOfList = ({ plant }) => {
   const {

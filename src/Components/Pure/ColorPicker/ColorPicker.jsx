@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { colors } from '../../../Models/configs/colors';
+import { colors } from '../../../Models/configs/colors.enum';
 import ColorCircle from '../../Molecules/ColorCircle/ColorCircle';
 
 const ColorPicker = ({ setFieldValue }) => {

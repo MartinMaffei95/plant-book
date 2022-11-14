@@ -1,5 +1,11 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from '@mui/material';
 
 const SelectField = ({
   name,
@@ -8,9 +14,11 @@ const SelectField = ({
   value,
   handleChange,
   handleBlur,
+  error,
+  helperText,
 }) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={error}>
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
       <Select
         variant="filled"
@@ -28,6 +36,7 @@ const SelectField = ({
             </MenuItem>
           ))}
       </Select>
+      <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
   );
 };
