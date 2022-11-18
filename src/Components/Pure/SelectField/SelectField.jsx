@@ -18,7 +18,7 @@ const SelectField = ({
   helperText,
 }) => {
   return (
-    <FormControl fullWidth error={error}>
+    <FormControl fullWidth error={error} className="overflow-visible">
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
       <Select
         variant="filled"
@@ -31,8 +31,8 @@ const SelectField = ({
       >
         {menuItems &&
           menuItems?.map((item) => (
-            <MenuItem key={Object.keys(item)} value={Object.keys(item)[0]}>
-              {Object.values(item)}
+            <MenuItem key={Object.keys(item)[0]} value={Object.values(item)[0]}>
+              {Object.values(item)[0]?.name}
             </MenuItem>
           ))}
       </Select>

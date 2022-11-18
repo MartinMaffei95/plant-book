@@ -1,3 +1,5 @@
+import createSchedule from '../../Hooks/createSchedule';
+
 export class Plant {
   plant_name; // string
   plant_type; // string or null (suculenta, cactus, flor, hortaliza, tuberculo)
@@ -19,7 +21,7 @@ export class Plant {
 
   constructor(plant) {
     this.plant_name = plant.plant_name || ''; // string
-    this.id = plant.id; // integer
+    this.id = plant.plant_name.toLowerCase(); // integer
     this.plant_type = plant.plant_type || null; // string or null (suculenta, cactus, flor, hortaliza, tuberculo)
     this.last_harvest = plant.last_harvest || null; // date or null
     this.assigned_color = plant.assigned_color || null; // string or null
@@ -43,6 +45,7 @@ export class Plant {
   get getAllData() {
     return {
       plant_name: this.plant_name, // string
+      plant_id: this.id, // string
       plant_type: this.plant_type, // string or null (suculenta, cactus, flor, hortaliza, tuberculo)
       last_harvest: this.last_harvest, // date or null
       assigned_color: this.assigned_color, // string or null
@@ -52,7 +55,7 @@ export class Plant {
       last_application_of_insecticide: this.last_application_of_insecticide, // date or null
       last_application_of_fungicide: this.last_application_of_fungicide, // date or null
 
-      watered_schedule: this.watered_schedule, //object or null
+      watered_schedule: createSchedule(this.watered_schedule), //object or null <== this value is a string. Use that string for create a schedule obj
       prune_schedule: this.prune_schedule, //object or null
       fertilization_schedule: this.fertilization_schedule, //object or null
       insecticide_schedule: this.insecticide_schedule, //object or null

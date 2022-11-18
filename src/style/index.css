@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  overflow: hidden;
+}
+/* .test {
+  background: red;
+  opacity: 1;
+  z-index: 100;
+} */
+
+.test div {
+  @apply w-full h-full flex justify-center items-center cursor-pointer;
+}
+.test div:hover {
+  @apply bg-mainColor-100 text-accentColor-500;
+}

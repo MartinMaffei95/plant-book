@@ -5,4 +5,5 @@ export default configureStore({
   reducer: {
     garden: gardenReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

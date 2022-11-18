@@ -1,8 +1,8 @@
 const ColorCircle = ({ selected, color, value, handleClick }) => {
   return (
-    <div className="relative">
+    <div className="relative overflow-visible">
       <div
-        className={` w-8 h-8 rounded-full cursor-pointer absolute`}
+        className={` w-8 h-8 rounded-full cursor-pointer absolute `}
         style={{
           background: color,
           border: selected === value[0] ? `solid 2px ${color}` : 'none',
@@ -12,7 +12,7 @@ const ColorCircle = ({ selected, color, value, handleClick }) => {
         }}
       ></div>
       <div
-        className={` w-8 h-8 rounded-full cursor-pointer ${
+        className={` w-8 h-8 rounded-full cursor-pointer  ${
           selected === value[0] ? 'animate-ping ' : ''
         }`}
         style={{

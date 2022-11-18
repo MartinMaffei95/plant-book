@@ -72,15 +72,16 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
+const version = 'V5';
+
 self.addEventListener('install', async (evt) => {
-  self.registration.showNotification(
-    `Existe una nueva actualizacion de la app`,
-    { body: `Actualizala aqui` }
-  );
+  // self.registration.showNotification(`Existe una nueva actualizacion: ${version}`, {body:`actualiza al ${version}`} )
+  await self.registration.showNotification('activado', { body: 'actualiza' });
 });
 
-self.addEventListener('activate', (evt) => {
-  console.log('Se actualizo la app.');
+self.addEventListener('activate', async (evt) => {
+  console.log('Se actualizo el coso a la version: ' + version);
+  await self.registration.showNotification('activado', { body: 'actualiza' });
 });
 
 self.addEventListener('push', async (evt) => {

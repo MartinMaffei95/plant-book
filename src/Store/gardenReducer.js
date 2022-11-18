@@ -1,17 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Plant } from '../Models/plant/plant.model';
+import { plantAction } from './gardenActions/gardenActions';
 import { testGarden } from './testGarden';
-import moment from 'moment';
-
-const plantAction = (state, action) => {
-  //recibe state (to change) plant name(unic value) and field name to edit
-  const plantFinded = state.plants.find(
-    (p) => p.plant_name === action.payload.plant_name
-  );
-  if (!plantFinded) return null;
-  plantFinded[action.payload.field_name] = moment();
-  localStorage.setItem('garden', JSON.stringify(state.plants));
-};
 
 export const gardenSlice = createSlice({
   name: 'garden',
@@ -29,6 +19,7 @@ export const gardenSlice = createSlice({
       plantAction(state, action);
     },
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export const { addPlant, caringPlant } = gardenSlice.actions;

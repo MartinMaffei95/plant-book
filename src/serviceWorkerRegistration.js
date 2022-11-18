@@ -1,3 +1,10 @@
+import axios from 'axios';
+
+const vapidKey = {
+  vapidPubKey:
+    'BA5j-CgZxh6v68IslFi6WpbSR6DzsQjTDrwcKvDghbOd7jq-FHi8UKygQiy5xJGcc1XwRbzIZMHRwILojCGhCa8',
+  vapidPriKey: 'f5P-UCpNjYCFTfr_JKfRZHLbvUi70JsGWItlEXIElVY',
+};
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -58,6 +65,18 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      console.log('registrando');
+      console.log(registration);
+      registration.pushManager.getSubscription().then(async (sub) => {
+        console.log('registrando');
+        const pushSubscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: vapidKey.vapidPubKey,
+        });
+        await axios.post('http://localhost:4000/suscription', {
+          pushSubscription,
+        });
+      });
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {

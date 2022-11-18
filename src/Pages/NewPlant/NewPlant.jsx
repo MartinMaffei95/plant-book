@@ -7,25 +7,28 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { addPlant } from '../../Store/gardenReducer';
 
-import { Link } from 'react-router-dom';
 import { types } from '../../Models/configs/types.enum';
 import { schedulles } from '../../Models/configs/schedulles.enum';
 
 import * as Yup from 'yup';
+import InputField from '../../Components/Pure/InputField/InputField';
 
 const NewPlant = () => {
   const initialValues = {
     plant_name: '',
     plant_type: '',
     assigned_color: '',
-    watered_schedule: '',
-    prune_schedule: '',
-    fertilization_schedule: '',
+    watered_schedule: '', //SchedulleObj
+    prune_schedule: '', //SchedulleObj
+    fertilization_schedule: '', //SchedulleObj
+    insecticide_schedule: '', //SchedulleObj
+    fungal_schedule: '', //SchedulleObj
   };
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     dispatch(addPlant(values));
+    setFieldValue('assigned_color', '');
     resetForm();
   };
 
@@ -35,11 +38,11 @@ const NewPlant = () => {
 
   const validationSchema = Yup.object().shape({
     plant_name: Yup.string().required(errMsg.required),
-    plant_type: Yup.string().required(errMsg.required),
+    plant_type: Yup.object().required(errMsg.required),
     assigned_color: Yup.string().required(errMsg.required),
-    watered_schedule: Yup.string().required(errMsg.required),
-    prune_schedule: Yup.string().required(errMsg.required),
-    fertilization_schedule: Yup.string().required(errMsg.required),
+    watered_schedule: Yup.object().required(errMsg.required),
+    prune_schedule: Yup.object().required(errMsg.required),
+    fertilization_schedule: Yup.object().required(errMsg.required),
   });
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -57,9 +60,9 @@ const NewPlant = () => {
   return (
     <>
       <h3>Agreguemos una planta nueva</h3>
-      <Link to="/">Home</Link>
+
       <div className="p-4">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <TextField
             label="El nombre de tu planta"
             variant="filled"
@@ -90,16 +93,7 @@ const NewPlant = () => {
                 : false
             }
           />
-
           {/* <div className="bg-white m-2 p-2">color picker here</div> */}
-          <ColorPicker
-            name={'assigned_color'}
-            value={values?.assigned_color}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            setFieldValue={setFieldValue}
-          />
-
           <SelectField
             name={'watered_schedule'}
             value={values?.watered_schedule}
@@ -153,9 +147,59 @@ const NewPlant = () => {
                 : false
             }
           />
+          <SelectField
+            name={'insecticide_schedule'}
+            value={values?.insecticide_schedule}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            menuItems={schedulles}
+            label={'Anti plagas'}
+            //error
+            error={
+              errors.insecticide_schedule && touched.insecticide_schedule
+                ? true
+                : false
+            }
+            helperText={
+              errors.insecticide_schedule && touched.insecticide_schedule
+                ? errors.insecticide_schedule
+                : false
+            }
+          />
+          <SelectField
+            name={'fungal_schedule'}
+            value={values?.fungal_schedule}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            menuItems={schedulles}
+            label={'Anti hongos'}
+            //error
+            error={
+              errors.fungal_schedule && touched.fungal_schedule ? true : false
+            }
+            helperText={
+              errors.fungal_schedule && touched.fungal_schedule
+                ? errors.fungal_schedule
+                : false
+            }
+          />
           {/* <SelectField menuItems={schedulles} label={'Tratamiento insecticida'} />
         <SelectField menuItems={schedulles} label={'Tratamiento fungico'} /> */}
-          <button type="submit"> Guardar </button>
+          Color
+          <ColorPicker
+            name={'assigned_color'}
+            value={values?.assigned_color}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            setFieldValue={setFieldValue}
+          />
+          <button
+            className="bg-dominantColor-300 p-2 m-2 rounded flex justify-center items-center text-mainColor-300"
+            type="submit"
+          >
+            {' '}
+            Guardar{' '}
+          </button>
         </form>
       </div>
     </>
