@@ -6,7 +6,7 @@ import { testGarden } from './testGarden';
 export const gardenSlice = createSlice({
   name: 'garden',
   initialState: {
-    plants: JSON.parse(localStorage.getItem('garden')) || [],
+    plants: testGarden || [],
   },
   reducers: {
     addPlant: (state, action) => {
@@ -15,11 +15,14 @@ export const gardenSlice = createSlice({
       localStorage.setItem('garden', JSON.stringify(state.plants));
     },
     caringPlant: (state, action) => {
-      //recibe the plant name(-unic value-) and change "last_watering" to today Date
-      plantAction(state, action);
+      const caredPlant = plantAction(state, action);
+      console.log(caredPlant);
+      return {
+        ...state,
+        plants: [...caredPlant],
+      };
     },
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export const { addPlant, caringPlant } = gardenSlice.actions;

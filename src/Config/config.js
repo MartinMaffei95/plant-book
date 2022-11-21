@@ -1,3 +1,3 @@
 export const config = {
-  date_format: '',
+  date_format: 'DD-MM-YYYY',
 };

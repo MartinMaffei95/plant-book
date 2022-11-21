@@ -10,47 +10,15 @@ import {
 import Icon from './Icon/Icon';
 
 //REDUX
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 //moment
-import moment from 'moment';
 import { caringPlant } from '../../Store/gardenReducer';
-import { colors } from '../../Models/configs/colors.enum';
-import { config } from '../../Config/config';
 import { Link } from 'react-router-dom';
-import getColor from '../../Hooks/getColor';
-
-export const isToday = (date) => {
-  // const today = moment();
-  if (date === null) return false;
-  if (moment(date).isSame(moment(), 'day')) {
-    return true;
-  } else return false;
-};
-
-export const isTodayWork = (value) => {
-  if (value === null || value === undefined) return false;
-  if (!isToday(value)) return false;
-  return true;
-};
-
-export const isPending = (lastCaring, schedule) => {
-  if (isNonScheduled(schedule)) return false;
-  const { next_event, init_date } = schedule;
-  if (
-    (isTodayWork(next_event) && !isToday(lastCaring)) ||
-    (isToday(init_date) && !isToday(lastCaring))
-  )
-    return true;
-  return false;
-};
-
-export const isNonScheduled = (value) => {
-  if (value === null || value === undefined || value?.name === 'Nunca')
-    return true;
-  // if (!isToday(value)) return false;
-  return false;
-};
+import getColor from '../../utils/getColor';
+import { isPending } from '../../utils/isPending';
+import { isNonScheduled } from '../../utils/isNonScheduled';
+import { isToday } from '../../utils/isToday';
 
 const PlantItemOfList = ({ plant }) => {
   const {
@@ -71,7 +39,7 @@ const PlantItemOfList = ({ plant }) => {
   const dispatch = useDispatch();
 
   //color
-
+  console.log(isToday(last_watering));
   const { find, color } = getColor(assigned_color);
   return (
     <div className="flex flex-col bg-dominantColor-400 rounded-xl p-2 pl-3 relative overflow-hidden">
@@ -87,7 +55,7 @@ const PlantItemOfList = ({ plant }) => {
       {/* <div>{plant_type}</div> */}
       <div className="flex gap-2 justify-end">
         <Icon
-          off={isToday(last_watering) ? false : true}
+          itsDoneToday={isToday(last_watering) ? true : false}
           isPending={isPending(last_watering, watered_schedule)}
           nonScheduled={isNonScheduled(watered_schedule)}
         >
@@ -104,7 +72,7 @@ const PlantItemOfList = ({ plant }) => {
           />
         </Icon>
         <Icon
-          off={isToday(last_fertilization) ? false : true}
+          itsDoneToday={isToday(last_fertilization) ? true : false}
           isPending={isPending(last_fertilization, fertilization_schedule)}
           nonScheduled={isNonScheduled(fertilization_schedule)}
         >
@@ -121,7 +89,7 @@ const PlantItemOfList = ({ plant }) => {
           />
         </Icon>
         <Icon
-          off={isToday(last_prune) ? false : true}
+          itsDoneToday={isToday(last_prune) ? true : false}
           isPending={isPending(last_prune, prune_schedule)}
           nonScheduled={isNonScheduled(prune_schedule)}
         >
@@ -138,7 +106,7 @@ const PlantItemOfList = ({ plant }) => {
           />
         </Icon>
         <Icon
-          off={isToday(last_application_of_insecticide) ? false : true}
+          itsDoneToday={isToday(last_application_of_insecticide) ? true : false}
           isPending={isPending(
             last_application_of_insecticide,
             insecticide_schedule
@@ -158,7 +126,7 @@ const PlantItemOfList = ({ plant }) => {
           />
         </Icon>
         <Icon
-          off={isToday(last_application_of_fungicide) ? false : true}
+          itsDoneToday={isToday(last_application_of_fungicide) ? true : false}
           isPending={isPending(last_application_of_fungicide, fungal_schedule)}
           nonScheduled={isNonScheduled(fungal_schedule)}
         >

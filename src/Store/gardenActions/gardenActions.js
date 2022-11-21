@@ -1,22 +1,30 @@
 import moment from 'moment';
-import { isToday } from '../../Components/Pure/PlantItemOfList';
 import { config } from '../../Config/config';
+import { formatingDate } from '../../utils/formatingDate';
+import { isToday } from '../../utils/isToday';
 
 export const plantAction = (state, action) => {
   //recibe state (to change) plant name(unic value) and field name to edit
-  const plantFinded = state.plants.find(
-    (p) => p.plant_name === action.payload.plant_name
-  );
-  if (!plantFinded) return null;
-  const actualDateEvt = moment(
-    plantFinded[action.payload.actualSchedule]['next_event']
-  );
-  const step = plantFinded[action.payload.actualSchedule]['step_repeat'];
+  //find the plant who need to change state
+  const plantFinded = state.plants.map((p) => {
+    if (p.plant_name === action.payload.plant_name) {
+      //getting 'next_event' and 'ste`p' value vor  the plant
+      const actualDateEvt = moment(
+        p[action.payload.actualSchedule]['next_event'],
+        config.date_format
+      );
+      const step = p[action.payload.actualSchedule]['step_repeat'];
 
-  if (isToday(actualDateEvt) || moment().isAfter(actualDateEvt)) {
-    plantFinded[action.payload.actualSchedule]['next_event'] =
-      actualDateEvt.add(step, 'd');
-  }
-  plantFinded[action.payload.field_name] = moment().format(config.date_format);
-  localStorage.setItem('garden', JSON.stringify(state.plants));
+      if (isToday(actualDateEvt) || moment().isAfter(actualDateEvt)) {
+        p[action.payload.actualSchedule]['next_event'] = actualDateEvt.add(
+          step,
+          'd'
+        );
+      }
+      p[action.payload.field_name] = formatingDate(moment());
+      localStorage.setItem('garden', JSON.stringify(state.plants));
+    }
+    return p;
+  });
+  return plantFinded;
 };

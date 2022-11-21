@@ -11,12 +11,16 @@ import { types } from '../../Models/configs/types.enum';
 import { schedulles } from '../../Models/configs/schedulles.enum';
 
 import * as Yup from 'yup';
-import InputField from '../../Components/Pure/InputField/InputField';
-
+import moment from 'moment/moment';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 const NewPlant = () => {
   const initialValues = {
     plant_name: '',
     plant_type: '',
+    planting_date: moment(),
+    harvest_date: moment(),
     assigned_color: '',
     watered_schedule: '', //SchedulleObj
     prune_schedule: '', //SchedulleObj
@@ -193,11 +197,26 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             setFieldValue={setFieldValue}
           />
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <MobileDatePicker
+              label="Fecha de plantación"
+              inputFormat="MM/DD/YYYY"
+              value={values?.planting_date}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <MobileDatePicker
+              label="Fecha de cosecha"
+              inputFormat="MM/DD/YYYY"
+              value={values?.harvest_date}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           <button
             className="bg-dominantColor-300 p-2 m-2 rounded flex justify-center items-center text-mainColor-300"
             type="submit"
           >
-            {' '}
             Guardar{' '}
           </button>
         </form>

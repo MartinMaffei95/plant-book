@@ -17,3 +17,11 @@
 .test div:hover {
   @apply bg-mainColor-100 text-accentColor-500;
 }
+
+.scheduleTab .tableHead {
+  @apply border border-mainColor-400 flex justify-center items-center bg-mainColor-800 h-8;
+}
+
+.scheduleTab div {
+  @apply border border-mainColor-400 flex justify-center items-center bg-mainColor-700;
+}
