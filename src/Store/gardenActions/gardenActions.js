@@ -9,17 +9,23 @@ export const plantAction = (state, action) => {
   const plantFinded = state.plants.map((p) => {
     if (p.plant_name === action.payload.plant_name) {
       //getting 'next_event' and 'ste`p' value vor  the plant
+
       const actualDateEvt = moment(
-        p[action.payload.actualSchedule]['next_event'],
-        config.date_format
+        p[action.payload.actualSchedule]['next_event']
       );
       const step = p[action.payload.actualSchedule]['step_repeat'];
-
       if (isToday(actualDateEvt) || moment().isAfter(actualDateEvt)) {
-        p[action.payload.actualSchedule]['next_event'] = actualDateEvt.add(
-          step,
-          'd'
-        );
+        while (
+          !moment(p[action.payload.actualSchedule]['next_event']).isAfter(
+            moment()
+          )
+        ) {
+          p[action.payload.actualSchedule]['next_event'] = actualDateEvt.add(
+            step,
+            'days'
+          );
+          console.log('actualizacion', actualDateEvt);
+        }
       }
       p[action.payload.field_name] = formatingDate(moment());
       localStorage.setItem('garden', JSON.stringify(state.plants));

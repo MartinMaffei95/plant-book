@@ -7,11 +7,9 @@ import ScheduleGrid from '../../Components/Pure/ScheduleGrid/ScheduleGrid';
 const PlantPage = () => {
   const { plant_id } = useParams();
   const plants = useSelector((state) => state.garden.plants);
-  // console.log(plants.find((p) => p.id === plant_id));
   const [thisPlant, setThisPlant] = useState(
     plants?.find((p) => p?.id === plant_id)
   );
-  // console.log(plant_id);
   const [schedule, setSchedule] = useState([
     {
       name: 'Poda',

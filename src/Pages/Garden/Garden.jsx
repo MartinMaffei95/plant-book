@@ -7,7 +7,7 @@ const Garden = () => {
   const garden = useSelector((state) => state.garden);
 
   //moment().add(2, 'd') adding two days to actual date
-  console.log(moment().dayOfYear());
+  // console.log(moment().dayOfYear());
   //   var interval = moment('2016-12-31T08:00:00');
   //   console.log(interval.format());
   //   console.log(interval.add(1, 'month').endOf('month').format());

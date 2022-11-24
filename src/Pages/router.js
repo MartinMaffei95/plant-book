@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import FooterContainer from '../Components/Container/FooterContainer';
+import EditPlant from './EditPlant/EditPlant';
 import Garden from './Garden/Garden';
 import NewPlant from './NewPlant/NewPlant';
 import PlantPage from './PlantPage/PlantPage';
@@ -41,7 +42,17 @@ const router = createBrowserRouter([
           },
           {
             path: ':plant_id',
-            element: <PlantPage />,
+            element: <Outlet />,
+            children: [
+              {
+                path: '',
+                element: <PlantPage />,
+              },
+              {
+                path: 'edit',
+                element: <EditPlant />,
+              },
+            ],
           },
         ],
       },

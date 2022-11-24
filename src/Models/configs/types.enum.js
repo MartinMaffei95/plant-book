@@ -1,7 +1,7 @@
 export const types = [
-  { CACTUS: { name: 'Cactus' } },
-  { SUCULENT: { name: 'Suculenta' } },
-  { AROMATIC: { name: 'Aromatica' } },
-  { FLOWER: { name: 'Flores' } },
-  { TREE: { name: 'Árbol' } },
+  { name: 'Cactus', id: 'CACTUS' },
+  { name: 'Suculenta', id: 'SUCULENT' },
+  { name: 'Aromatica', id: 'AROAMTIC' },
+  { name: 'Flores', id: 'FLOWER' },
+  { name: 'Árbol', id: 'TREE' },
 ];

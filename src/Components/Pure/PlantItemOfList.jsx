@@ -39,7 +39,6 @@ const PlantItemOfList = ({ plant }) => {
   const dispatch = useDispatch();
 
   //color
-  console.log(isToday(last_watering));
   const { find, color } = getColor(assigned_color);
   return (
     <div className="flex flex-col bg-dominantColor-400 rounded-xl p-2 pl-3 relative overflow-hidden">

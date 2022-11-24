@@ -8,32 +8,35 @@ import { useDispatch } from 'react-redux';
 import { addPlant } from '../../Store/gardenReducer';
 
 import { types } from '../../Models/configs/types.enum';
-import { schedulles } from '../../Models/configs/schedulles.enum';
+// import { schedulles } from '../../Models/configs/schedulles.enum';
 
 import * as Yup from 'yup';
 import moment from 'moment/moment';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-const NewPlant = () => {
-  const initialValues = {
+const NewPlant = ({ initValues = null }) => {
+  const schedulles = JSON.parse(localStorage.getItem('schedules'));
+
+  const initialValues = initValues || {
     plant_name: '',
     plant_type: '',
     planting_date: moment(),
     harvest_date: moment(),
     assigned_color: '',
-    watered_schedule: '', //SchedulleObj
-    prune_schedule: '', //SchedulleObj
-    fertilization_schedule: '', //SchedulleObj
-    insecticide_schedule: '', //SchedulleObj
-    fungal_schedule: '', //SchedulleObj
+    watered_schedule: schedulles[0].id, //SchedulleObj
+    prune_schedule: schedulles[0].id, //SchedulleObj
+    fertilization_schedule: schedulles[0].id, //SchedulleObj
+    insecticide_schedule: schedulles[0].id, //SchedulleObj
+    fungal_schedule: schedulles[0].id, //SchedulleObj
   };
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const onSubmit = (e) => {
+    // console.log(values);
     dispatch(addPlant(values));
-    setFieldValue('assigned_color', '');
-    resetForm();
+    // setFieldValue('assigned_color', '');
+    // resetForm();
   };
 
   const errMsg = {
@@ -42,11 +45,11 @@ const NewPlant = () => {
 
   const validationSchema = Yup.object().shape({
     plant_name: Yup.string().required(errMsg.required),
-    plant_type: Yup.object().required(errMsg.required),
+    plant_type: Yup.string().required(errMsg.required),
     assigned_color: Yup.string().required(errMsg.required),
-    watered_schedule: Yup.object().required(errMsg.required),
-    prune_schedule: Yup.object().required(errMsg.required),
-    fertilization_schedule: Yup.object().required(errMsg.required),
+    watered_schedule: Yup.string().required(errMsg.required),
+    prune_schedule: Yup.string().required(errMsg.required),
+    fertilization_schedule: Yup.string().required(errMsg.required),
   });
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -89,6 +92,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={types}
             label={'Tipo de planta'}
+            setFieldValue={setFieldValue}
             //error
             error={errors.plant_type && touched.plant_type ? true : false}
             helperText={
@@ -105,6 +109,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={schedulles}
             label={'Riego'}
+            setFieldValue={setFieldValue}
             //error
             error={
               errors.watered_schedule && touched.watered_schedule ? true : false
@@ -122,6 +127,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={schedulles}
             label={'Podas'}
+            setFieldValue={setFieldValue}
             //error
             error={
               errors.prune_schedule && touched.prune_schedule ? true : false
@@ -139,6 +145,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={schedulles}
             label={'Fertilizaciones'}
+            setFieldValue={setFieldValue}
             //error
             error={
               errors.fertilization_schedule && touched.fertilization_schedule
@@ -158,6 +165,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={schedulles}
             label={'Anti plagas'}
+            setFieldValue={setFieldValue}
             //error
             error={
               errors.insecticide_schedule && touched.insecticide_schedule
@@ -177,6 +185,7 @@ const NewPlant = () => {
             handleBlur={handleBlur}
             menuItems={schedulles}
             label={'Anti hongos'}
+            setFieldValue={setFieldValue}
             //error
             error={
               errors.fungal_schedule && touched.fungal_schedule ? true : false
@@ -205,6 +214,7 @@ const NewPlant = () => {
               onChange={handleChange}
               renderInput={(params) => <TextField {...params} />}
             />
+
             <MobileDatePicker
               label="Fecha de cosecha"
               inputFormat="MM/DD/YYYY"

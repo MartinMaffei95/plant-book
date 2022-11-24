@@ -5,7 +5,7 @@ import { LogoutButton } from './Login/Login';
 const Profile = () => {
   const { user, isAuthenticated, isLoadig, getAccessTokenSilently } =
     useAuth0();
-  console.log(getAccessTokenSilently());
+  // console.log(getAccessTokenSilently());
   if (isLoadig) return <div>CARGANDO</div>;
 
   return (
