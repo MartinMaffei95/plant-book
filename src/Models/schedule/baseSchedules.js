@@ -1,41 +1,125 @@
+import { getClockNumberUtilityClass } from '@mui/x-date-pickers/ClockPicker/clockNumberClasses';
 import moment from 'moment';
 import { formatingDate } from '../../utils/formatingDate';
+import {
+  ID_EVEN_TWO_DAYS,
+  ID_EVEN_TWO_WEEKS,
+  ID_EVEN_WEEK,
+  ID_EVERY_DAYS,
+  ID_NEVER,
+} from './shcedulesId';
 
 const today = moment();
 
-export const never = {
+export const NEVER = {
   name: 'Nunca',
+  id: ID_NEVER,
   init_date: null,
   step_repeat: null,
   next_event: null,
   final_date: null,
   notificate: false,
   extra_data: null,
-};
-export const everyDays = {
-  name: 'Todos los dias',
-  init_date: formatingDate(today),
-  step_repeat: 1,
-  next_event: formatingDate(today.add(1, 'd')),
-  final_date: null,
-  notificate: false,
   extra_data: null,
+  step_format: null,
+  days_to_repeat: [],
+  scheduled: true,
+  last_execution: null,
+  end_date: null,
+  end_format: null,
+  repeats: 0,
+  repeats_to_end: null,
+  month_data: null,
+  end_handler: null,
 };
-export const everyTwoDays = {
+
+export const EVERY_TWO_DAYS = {
   name: 'Cada dos dias',
+  id: ID_EVEN_TWO_DAYS,
   init_date: formatingDate(today),
   step_repeat: 2,
   next_event: formatingDate(today.add(2, 'd')),
   final_date: null,
   notificate: false,
   extra_data: null,
+  extra_data: null,
+  step_format: 'DAY',
+  days_to_repeat: [],
+  scheduled: true,
+  last_execution: null,
+  end_date: null,
+  end_format: null,
+  repeats: 0,
+  repeats_to_end: 1,
+  month_data: null,
+  end_handler: null,
 };
-export const everyWeek = {
+export const EVERY_WEEK = {
   name: 'Cada semana',
+  id: ID_EVEN_WEEK,
   init_date: formatingDate(today),
   step_repeat: 7,
   next_event: formatingDate(today.add(7, 'd')),
   final_date: null,
   notificate: false,
   extra_data: null,
+  step_format: 'DAY',
+  days_to_repeat: [],
+  scheduled: true,
+  last_execution: null,
+  end_date: null,
+  end_format: null,
+  repeats: 0,
+  repeats_to_end: 1,
+  month_data: null,
+  end_handler: null,
 };
+
+export const EVEN_TWO_WEEKS = {
+  name: 'Cada dos semanas',
+  id: ID_EVEN_TWO_WEEKS,
+  init_date: formatingDate(today),
+  step_repeat: 14,
+  next_event: formatingDate(today.add(14, 'd')),
+  final_date: null,
+  notificate: false,
+  extra_data: null,
+  step_format: 'DAY',
+  days_to_repeat: [],
+  scheduled: true,
+  last_execution: null,
+  end_date: null,
+  end_format: null,
+  repeats: 0,
+  repeats_to_end: 1,
+  month_data: null,
+  end_handler: null,
+};
+
+export const EVERY_DAYS = {
+  name: 'Todos los dias',
+  id: ID_EVERY_DAYS,
+  init_date: formatingDate(today),
+  step_repeat: 1,
+  step_format: 'DAY',
+  days_to_repeat: [],
+  next_event: formatingDate(today.add(1, 'd')),
+  scheduled: true,
+  last_execution: null,
+  notificate: false,
+  extra_data: null,
+  end_date: null,
+  end_format: null,
+  repeats: 0,
+  repeats_to_end: 1,
+  month_data: null,
+  end_handler: null,
+};
+
+export const baseSchedules = [
+  NEVER,
+  EVERY_TWO_DAYS,
+  EVERY_WEEK,
+  EVERY_DAYS,
+  EVEN_TWO_WEEKS,
+];

@@ -7,6 +7,7 @@ import {
   FormHelperText,
 } from '@mui/material';
 import PersonalizedSchedule from './PersonalizedSchedule/PersonalizedSchedule';
+import { ID_PERSONALIZED } from '../../../Models/schedule/shcedulesId';
 
 const SelectField = ({
   name,
@@ -39,13 +40,13 @@ const SelectField = ({
                 {item?.name}
               </MenuItem>
             ))}
-          <MenuItem key={'PERSONALIZED'} value={'PERSONALIZED'}>
+          <MenuItem key={ID_PERSONALIZED} value={ID_PERSONALIZED}>
             {'PERSONALIZADO'}
           </MenuItem>
         </Select>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
-      {value === 'PERSONALIZED' ? (
+      {value === ID_PERSONALIZED ? (
         <PersonalizedSchedule valueName={name} setFieldValue={setFieldValue} />
       ) : null}
     </>

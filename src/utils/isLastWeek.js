@@ -1,9 +1,9 @@
 // dicctionaries
 export const dictionaryWeek = {
-  1: 'primer',
-  2: 'segundo',
-  3: 'tercer',
-  4: 'cuarto',
+  1: 'FIRST',
+  2: 'SECOND',
+  3: 'THIRD',
+  4: 'FOURTH',
 };
 export const dictionaryDay = {
   0: 'domingo',
@@ -18,6 +18,8 @@ export const dictionaryDay = {
 // Normalize functions
 // Create number day ex:(second monday of month)
 export const nWeekOfMounth = (day) => {
+  // day is the number of the day in the current month
+  if (day === 0) return 0;
   if (!day) return;
   const nOfWeek = Math.ceil(day / 7);
   if (!nOfWeek) return;

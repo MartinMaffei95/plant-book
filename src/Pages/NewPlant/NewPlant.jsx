@@ -15,25 +15,30 @@ import moment from 'moment/moment';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-const NewPlant = ({ initValues = null }) => {
-  const schedulles = JSON.parse(localStorage.getItem('schedules'));
+import { baseSchedules } from '../../Models/schedule/baseSchedules';
 
+const NewPlant = ({ initValues = null }) => {
+  const schedulles = baseSchedules;
   const initialValues = initValues || {
     plant_name: '',
     plant_type: '',
     planting_date: moment(),
     harvest_date: moment(),
     assigned_color: '',
-    watered_schedule: schedulles[0].id, //SchedulleObj
-    prune_schedule: schedulles[0].id, //SchedulleObj
-    fertilization_schedule: schedulles[0].id, //SchedulleObj
-    insecticide_schedule: schedulles[0].id, //SchedulleObj
-    fungal_schedule: schedulles[0].id, //SchedulleObj
+    watered_schedule: schedulles[0]?.id, //SchedulleObj
+    prune_schedule: schedulles[0]?.id, //SchedulleObj
+    fertilization_schedule: schedulles[0]?.id, //SchedulleObj
+    insecticide_schedule: schedulles[0]?.id, //SchedulleObj
+    fungal_schedule: schedulles[0]?.id, //SchedulleObj
+  };
+
+  const handleDate = (valueName, date) => {
+    setFieldValue(valueName, date);
   };
 
   const dispatch = useDispatch();
   const onSubmit = (e) => {
-    // console.log(values);
+    // e.preventDefault();
     dispatch(addPlant(values));
     // setFieldValue('assigned_color', '');
     // resetForm();
@@ -206,12 +211,12 @@ const NewPlant = ({ initValues = null }) => {
             handleBlur={handleBlur}
             setFieldValue={setFieldValue}
           />
-          <LocalizationProvider dateAdapter={AdapterMoment}>
+          {/* <LocalizationProvider dateAdapter={AdapterMoment}>
             <MobileDatePicker
               label="Fecha de plantación"
               inputFormat="MM/DD/YYYY"
               value={values?.planting_date}
-              onChange={handleChange}
+              onChange={(e) => handleDate('planting_date', e)}
               renderInput={(params) => <TextField {...params} />}
             />
 
@@ -219,10 +224,10 @@ const NewPlant = ({ initValues = null }) => {
               label="Fecha de cosecha"
               inputFormat="MM/DD/YYYY"
               value={values?.harvest_date}
-              onChange={handleChange}
+              onChange={(e) => handleDate('harvest_date', e)}
               renderInput={(params) => <TextField {...params} />}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
           <button
             className="bg-dominantColor-300 p-2 m-2 rounded flex justify-center items-center text-mainColor-300"
             type="submit"

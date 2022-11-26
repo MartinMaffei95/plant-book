@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AiFillSetting } from 'react-icons/ai';
 import ScheduleGrid from '../../Components/Pure/ScheduleGrid/ScheduleGrid';
+import { formatingDate } from '../../utils/formatingDate';
 const PlantPage = () => {
   const { plant_id } = useParams();
   const plants = useSelector((state) => state.garden.plants);
@@ -12,24 +13,29 @@ const PlantPage = () => {
   );
   const [schedule, setSchedule] = useState([
     {
-      name: 'Poda',
-      schedule: thisPlant?.prune_schedule,
-      itsDoneToday: thisPlant?.last_prune,
-    },
-    {
       name: 'Riego',
       schedule: thisPlant?.watered_schedule,
       itsDoneToday: thisPlant?.last_watering,
     },
     {
-      name: 'AntiHongos',
-      schedule: thisPlant?.fungal_schedule,
-      itsDoneToday: thisPlant?.last_application_of_fungicide,
+      name: 'Fertilizacion',
+      schedule: thisPlant?.fertilization_schedule,
+      itsDoneToday: thisPlant?.last_fertilization,
+    },
+    {
+      name: 'Poda',
+      schedule: thisPlant?.prune_schedule,
+      itsDoneToday: thisPlant?.last_prune,
     },
     {
       name: 'AntiPlagas',
       schedule: thisPlant?.insecticide_schedule,
       itsDoneToday: thisPlant?.last_application_of_insecticide,
+    },
+    {
+      name: 'AntiHongos',
+      schedule: thisPlant?.fungal_schedule,
+      itsDoneToday: thisPlant?.last_application_of_fungicide,
     },
   ]);
 
@@ -49,13 +55,13 @@ const PlantPage = () => {
           <div>
             Fecha de plantacion:{' '}
             {thisPlant && thisPlant?.planting_date
-              ? thisPlant?.planting_date
+              ? formatingDate(thisPlant?.planting_date)
               : 'No definido'}
           </div>
           <div>
             Fecha de cosecha:{' '}
             {thisPlant && thisPlant?.harvest_date
-              ? thisPlant?.harvest_date
+              ? formatingDate(thisPlant?.harvest_date)
               : 'No definido'}
           </div>
         </div>
