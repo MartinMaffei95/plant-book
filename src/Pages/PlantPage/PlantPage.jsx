@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TbPlant } from 'react-icons/tb';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AiFillSetting } from 'react-icons/ai';
 import ScheduleGrid from '../../Components/Pure/ScheduleGrid/ScheduleGrid';
 import { formatingDate } from '../../utils/formatingDate';
@@ -48,7 +48,9 @@ const PlantPage = () => {
         <div className="flex justify-center items-center">
           {thisPlant && thisPlant?.plant_name}
           <button>
-            <AiFillSetting />
+            <Link to="edit">
+              <AiFillSetting />
+            </Link>
           </button>
         </div>
         <div>

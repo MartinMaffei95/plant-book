@@ -5,7 +5,7 @@ import ColorPicker from '../../Components/Pure/ColorPicker/ColorPicker';
 import { useFormik } from 'formik';
 //REDUX
 import { useDispatch } from 'react-redux';
-import { addPlant } from '../../Store/gardenReducer';
+import { addPlant, editPlant } from '../../Store/gardenReducer';
 
 import { types } from '../../Models/configs/types.enum';
 // import { schedulles } from '../../Models/configs/schedulles.enum';
@@ -16,8 +16,10 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { baseSchedules } from '../../Models/schedule/baseSchedules';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const NewPlant = ({ initValues = null }) => {
+const NewPlant = ({ initValues = null, isEditing = false }) => {
+  const { plant_id } = useParams();
   const schedulles = baseSchedules;
   const initialValues = initValues || {
     plant_name: '',
@@ -35,13 +37,19 @@ const NewPlant = ({ initValues = null }) => {
   const handleDate = (valueName, date) => {
     setFieldValue(valueName, date);
   };
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const onSubmit = (e) => {
-    // e.preventDefault();
-    dispatch(addPlant(values));
-    // setFieldValue('assigned_color', '');
-    // resetForm();
+    if (isEditing) {
+      dispatch(editPlant(values));
+      navigate(`/garden/${plant_id}`);
+    } else {
+      dispatch(addPlant(values));
+      setFieldValue('assigned_color', '');
+      resetForm();
+      navigate(`/garden`);
+    }
   };
 
   const errMsg = {
@@ -72,7 +80,6 @@ const NewPlant = ({ initValues = null }) => {
   return (
     <>
       <h3>Agreguemos una planta nueva</h3>
-
       <div className="p-4">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <TextField

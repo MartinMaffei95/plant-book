@@ -28,7 +28,7 @@ const PersonalizedSchedule = ({ valueName, setFieldValue }) => {
 
   const [mySchedule, setMySchedule] = useState({
     name: 'PERSONALIZED',
-    // id: 'PERSONALIZED',
+    id: 'PERSONALIZED',
     init_date: moment(),
     step_repeat: 1,
     step_format: 'DAY',

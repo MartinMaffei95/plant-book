@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { config } from '../../Config/config';
+import { baseSchedules } from '../../Models/schedule/baseSchedules';
 import { formatingDate } from '../../utils/formatingDate';
 import { dictionaryDay, nWeekOfMounth } from '../../utils/isLastWeek';
 import { isSameDay, isSameOfThisDays, isToday } from '../../utils/isToday';
@@ -187,4 +188,74 @@ export const plantAction = (state, action) => {
     return p;
   });
   return plantFinded;
+};
+
+export const createPersonalizedSchedule = (plantObj) => {
+  // ··watered_schedule;
+  if (plantObj.watered_schedule === 'PERSONALIZED') {
+    const temporal_watered_schedule = JSON.parse(
+      localStorage.getItem('temporal_watered_schedule')
+    );
+    plantObj.watered_schedule = temporal_watered_schedule;
+  } else {
+    const schedule = baseSchedules.find(
+      (sch) => sch.id === plantObj.watered_schedule
+    );
+    plantObj.watered_schedule = schedule;
+  }
+
+  // ··prune_schedule;
+  if (plantObj.prune_schedule === 'PERSONALIZED') {
+    const temporal_prune_schedule = JSON.parse(
+      localStorage.getItem('temporal_prune_schedule')
+    );
+    plantObj.prune_schedule = temporal_prune_schedule;
+  } else {
+    const schedule = baseSchedules.find(
+      (sch) => sch.id === plantObj.prune_schedule
+    );
+    plantObj.prune_schedule = schedule;
+  }
+
+  // ·· fertilization_schedule;
+  if (plantObj.fertilization_schedule === 'PERSONALIZED') {
+    const temporal_fertilization_schedule = JSON.parse(
+      localStorage.getItem('temporal_fertilization_schedule')
+    );
+    plantObj.fertilization_schedule = temporal_fertilization_schedule;
+  } else {
+    const schedule = baseSchedules.find(
+      (sch) => sch.id === plantObj.fertilization_schedule
+    );
+    plantObj.fertilization_schedule = schedule;
+  }
+
+  // ·· insecticide_schedule;
+  if (plantObj.insecticide_schedule === 'PERSONALIZED') {
+    const temporal_insecticide_schedule = JSON.parse(
+      localStorage.getItem('temporal_insecticide_schedule')
+    );
+    plantObj.insecticide_schedule = temporal_insecticide_schedule;
+  } else {
+    const schedule = baseSchedules.find(
+      (sch) => sch.id === plantObj.insecticide_schedule
+    );
+    plantObj.insecticide_schedule = schedule;
+  }
+
+  // ·· fungal_schedule;
+  if (plantObj.fungal_schedule === 'PERSONALIZED') {
+    const temporal_fungal_schedule = JSON.parse(
+      localStorage.getItem('temporal_fungal_schedule')
+    );
+
+    plantObj.fungal_schedule = temporal_fungal_schedule;
+  } else {
+    const schedule = baseSchedules.find(
+      (sch) => sch.id === plantObj.fungal_schedule
+    );
+    plantObj.fungal_schedule = schedule;
+  }
+
+  return plantObj;
 };

@@ -10,7 +10,7 @@ const haveWorkToday = (plant) => {
         isToday(thisPlant?.['watered_schedule']['init_date'])) &&
       !isToday(thisPlant?.['last_watering'])
     ) {
-      return thisPlant;
+      return { plant: thisPlant, workToDo: 'WATERING' };
     }
   }
   if (thisPlant?.['prune_schedule']) {
@@ -19,7 +19,7 @@ const haveWorkToday = (plant) => {
         isToday(thisPlant?.['prune_schedule']['init_date'])) &&
       !isToday(thisPlant?.['last_prune'])
     ) {
-      return thisPlant;
+      return { plant: thisPlant, workToDo: 'PRUNE' };
     }
   }
 
@@ -29,7 +29,7 @@ const haveWorkToday = (plant) => {
         isToday(thisPlant?.['fertilization_schedule']['init_date'])) &&
       !isToday(thisPlant?.['last_fertilization'])
     ) {
-      return thisPlant;
+      return { plant: thisPlant, workToDo: 'FERTILIZATION' };
     }
   }
 
@@ -39,7 +39,7 @@ const haveWorkToday = (plant) => {
         isToday(thisPlant?.['fungal_schedule']['init_date'])) &&
       !isToday(thisPlant?.['last_application_of_fungicide'])
     ) {
-      return thisPlant;
+      return { plant: thisPlant, workToDo: 'FUNGICIDE' };
     }
   }
   if (thisPlant?.['insecticide_schedule']) {
@@ -48,7 +48,7 @@ const haveWorkToday = (plant) => {
         isToday(thisPlant?.['insecticide_schedule']['init_date'])) &&
       !isToday(thisPlant?.['last_application_of_insecticide'])
     ) {
-      return thisPlant;
+      return { plant: thisPlant, workToDo: 'INSECTICIDE' };
     }
   }
 

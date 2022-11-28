@@ -11,22 +11,23 @@ const EditPlant = () => {
   const [thisPlant, setThisPlant] = useState(
     plants?.find((p) => p?.id === plant_id)
   );
+  console.log(thisPlant);
   const initialValues = {
     plant_name: thisPlant?.plant_name,
     plant_type: thisPlant?.plant_type?.name,
     planting_date: moment(thisPlant?.planting_date, config.date_format),
     harvest_date: moment(thisPlant?.harvest_date, config.date_format),
     assigned_color: thisPlant?.assigned_color,
-    watered_schedule: thisPlant?.watered_schedule, //SchedulleObj
-    prune_schedule: thisPlant?.prune_schedule, //SchedulleObj
-    fertilization_schedule: thisPlant?.fertilization_schedule, //SchedulleObj
-    insecticide_schedule: thisPlant?.insecticide_schedule, //SchedulleObj
-    fungal_schedule: thisPlant?.fungal_schedule, //SchedulleObj
+    watered_schedule: thisPlant?.watered_schedule.id, //SchedulleObj
+    prune_schedule: thisPlant?.prune_schedule.id, //SchedulleObj
+    fertilization_schedule: thisPlant?.fertilization_schedule.id, //SchedulleObj
+    insecticide_schedule: thisPlant?.insecticide_schedule.id, //SchedulleObj
+    fungal_schedule: thisPlant?.fungal_schedule.id, //SchedulleObj
   };
 
   return (
     <div>
-      <NewPlant initValues={initialValues} />
+      <NewPlant initValues={initialValues} isEditing />
     </div>
   );
 };

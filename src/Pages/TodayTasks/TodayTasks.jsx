@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 // import addNotification from 'react-push-notification';
 import haveWorkToday from '../../utils/haveWorkToday';
+import { useState } from 'react';
 
 const TodayTasks = () => {
   const garden = useSelector((state) => state.garden.plants);
@@ -22,42 +23,37 @@ const TodayTasks = () => {
 
   // 2022-11-19T20:07:19.459Z
   console.log(garden);
+  const [filter, setFilter] = useState('ALL');
   return (
     <>
-      <h3>Tareas para hoy: </h3>
+      <h3>Tareas programadas para hoy: </h3>
+      <select
+        name="filter"
+        onChange={(e) => {
+          setFilter(e?.target?.value);
+        }}
+      >
+        <option value="ALL">ALL</option>
+        <option value="WATERING">WATERING</option>
+        <option value="PRUNE">PRUNE</option>
+        <option value="FERTILIZATION">FERTILIZATION</option>
+        <option value="FUNGICIDE">FUNGICIDE</option>
+        <option value="INSECTICIDE">INSECTICIDE</option>
+      </select>
       <div className="flex flex-col gap-2 p-2">
         <div>
-          Todas
           {garden
             ? garden?.map((p) =>
-                haveWorkToday(p) ? (
-                  <PlantItemOfList plant={haveWorkToday(p)} />
+                haveWorkToday(p) === null ? null : filter === 'ALL' ? (
+                  <PlantItemOfList plant={haveWorkToday(p)?.plant} />
                 ) : (
-                  ''
+                  filter === haveWorkToday(p)?.workToDo && (
+                    <PlantItemOfList plant={haveWorkToday(p)?.plant} />
+                  )
                 )
               )
-            : // garden?.plants?.map(
-              //     (p) =>
-              //       (isToday(p?.['watered_schedule']['next_event']) ||
-              //         isToday(p?.['watered_schedule']['init_date'])) &&
-              //       !isToday(p?.['last_watering']) ? (
-              //         <PlantItemOfList plant={p} />
-              //       ) : null
-              //   )
-              'Sin tareas'}
-        </div>
-        {/* <div>
-          Poda
-          {garden
-            ? garden?.plants?.map((p) => <PlantItemOfList plant={p} />)
             : 'Sin tareas'}
         </div>
-        <div>
-          Fertilizar
-          {garden
-            ? garden?.plants?.map((p) => <PlantItemOfList plant={p} />)
-            : 'Sin tareas'}
-        </div> */}
       </div>
     </>
   );
