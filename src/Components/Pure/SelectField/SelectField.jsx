@@ -10,6 +10,8 @@ import PersonalizedSchedule from './PersonalizedSchedule/PersonalizedSchedule';
 import { ID_PERSONALIZED } from '../../../Models/schedule/shcedulesId';
 
 const SelectField = ({
+  isEditing,
+  isType,
   name,
   label,
   menuItems,
@@ -40,14 +42,20 @@ const SelectField = ({
                 {item?.name}
               </MenuItem>
             ))}
-          <MenuItem key={ID_PERSONALIZED} value={ID_PERSONALIZED}>
-            {'PERSONALIZADO'}
-          </MenuItem>
+          {isType ? null : (
+            <MenuItem key={ID_PERSONALIZED} value={ID_PERSONALIZED}>
+              {'PERSONALIZADO'}
+            </MenuItem>
+          )}
         </Select>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
       {value === ID_PERSONALIZED ? (
-        <PersonalizedSchedule valueName={name} setFieldValue={setFieldValue} />
+        <PersonalizedSchedule
+          isEditing={isEditing ? true : null}
+          valueName={name}
+          setFieldValue={setFieldValue}
+        />
       ) : null}
     </>
   );

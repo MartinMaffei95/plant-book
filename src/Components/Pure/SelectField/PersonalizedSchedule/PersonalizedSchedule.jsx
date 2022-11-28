@@ -23,31 +23,47 @@ import {
 } from '../../../../utils/isLastWeek';
 import { stringify } from '../../../../utils/jsonFunc';
 
-const PersonalizedSchedule = ({ valueName, setFieldValue }) => {
+const PersonalizedSchedule = ({ isEditing, valueName, setFieldValue }) => {
   const [daysSelected, setDaysSelected] = useState([]);
 
-  const [mySchedule, setMySchedule] = useState({
-    name: 'PERSONALIZED',
-    id: 'PERSONALIZED',
-    init_date: moment(),
-    step_repeat: 1,
-    step_format: 'DAY',
-    days_to_repeat: daysSelected || null,
-    next_event: '',
-    scheduled: true,
-    last_execution: null,
-    notificate: false,
-    extra_data: null,
-    end_date: moment().add(1, 'M'),
-    end_format: null,
-    repeats: 0,
-    repeats_to_end: 1,
-    month_data: JSON.stringify({
-      day: moment().date(),
-      handler: 'EVERY',
-    }),
-    end_handler: null,
+  const [mySchedule, setMySchedule] = useState(() => {
+    if (isEditing) {
+      let scheduleConfig = JSON.parse(
+        localStorage.getItem(`temporal_${valueName}`)
+      );
+      return {
+        ...scheduleConfig,
+        init_date: scheduleConfig?.init_date
+          ? moment(scheduleConfig?.init_date ? scheduleConfig?.init_date : null)
+          : moment(),
+      };
+    } else {
+      return {
+        name: 'PERSONALIZED',
+        id: 'PERSONALIZED',
+        init_date: moment(),
+        step_repeat: 1,
+        step_format: 'DAY',
+        days_to_repeat: daysSelected || null,
+        next_event: '',
+        scheduled: true,
+        last_execution: null,
+        notificate: false,
+        extra_data: null,
+        end_date: moment().add(1, 'M'),
+        end_format: null,
+        repeats: 0,
+        repeats_to_end: 1,
+        month_data: JSON.stringify({
+          day: moment().date(),
+          handler: 'EVERY',
+        }),
+        end_handler: null,
+      };
+    }
   });
+
+  console.log(mySchedule);
   const handleChange_initDate = (e) => {
     setMySchedule({ ...mySchedule, init_date: moment(e) });
   };
@@ -167,7 +183,7 @@ const PersonalizedSchedule = ({ valueName, setFieldValue }) => {
               >
                 <MenuItem
                   value={JSON.stringify({
-                    day: mySchedule?.init_date.get('date'),
+                    day: (mySchedule?.init_date).get('date'),
                     handler: 'EVERY',
                   })}
                 >

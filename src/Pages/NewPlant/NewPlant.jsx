@@ -104,6 +104,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
             }
           />
           <SelectField
+            isType
             name={'plant_type'}
             value={values?.plant_type}
             handleChange={handleChange}
@@ -121,6 +122,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
           />
           {/* <div className="bg-white m-2 p-2">color picker here</div> */}
           <SelectField
+            isEditing={isEditing ? true : null}
             name={'watered_schedule'}
             value={values?.watered_schedule}
             handleChange={handleChange}
@@ -139,6 +141,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
             }
           />
           <SelectField
+            isEditing={isEditing ? true : null}
             name={'prune_schedule'}
             value={values?.prune_schedule}
             handleChange={handleChange}
@@ -157,6 +160,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
             }
           />
           <SelectField
+            isEditing={isEditing ? true : null}
             name={'fertilization_schedule'}
             value={values?.fertilization_schedule}
             handleChange={handleChange}
@@ -177,6 +181,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
             }
           />
           <SelectField
+            isEditing={isEditing ? true : null}
             name={'insecticide_schedule'}
             value={values?.insecticide_schedule}
             handleChange={handleChange}
@@ -197,6 +202,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
             }
           />
           <SelectField
+            isEditing={isEditing ? true : null}
             name={'fungal_schedule'}
             value={values?.fungal_schedule}
             handleChange={handleChange}

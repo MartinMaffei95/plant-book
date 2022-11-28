@@ -12,6 +12,34 @@ const EditPlant = () => {
     plants?.find((p) => p?.id === plant_id)
   );
   console.log(thisPlant);
+  // temporal_watered_schedule;
+  // temporal_plant_type;
+  // temporal_insecticide_schedule;
+  // temporal_prune_schedule;
+  // temporal_fungal_schedule;
+  // Setting localStore with personalized data
+
+  localStorage.setItem(
+    'temporal_watered_schedule',
+    JSON.stringify(thisPlant?.watered_schedule)
+  );
+  localStorage.setItem(
+    'temporal_prune_schedule',
+    JSON.stringify(thisPlant?.prune_schedule)
+  );
+  localStorage.setItem(
+    'fertilization_schedule',
+    JSON.stringify(thisPlant?.fertilization_schedule)
+  );
+  localStorage.setItem(
+    'temporal_insecticide_schedule',
+    JSON.stringify(thisPlant?.insecticide_schedule)
+  );
+  localStorage.setItem(
+    'temporal_fungal_schedule',
+    JSON.stringify(thisPlant?.fungal_schedule)
+  );
+
   const initialValues = {
     plant_name: thisPlant?.plant_name,
     id: thisPlant?.id,
