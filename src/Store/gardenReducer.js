@@ -4,6 +4,7 @@ import { baseSchedules } from '../Models/schedule/baseSchedules';
 import { ID_EVEN_TWO_DAYS } from '../Models/schedule/shcedulesId';
 import {
   createPersonalizedSchedule,
+  editPlantAction,
   plantAction,
 } from './gardenActions/gardenActions';
 import { testGarden } from './testGarden';
@@ -19,13 +20,19 @@ export const gardenSlice = createSlice({
   reducers: {
     addPlant: (state, action) => {
       let plantObj = action.payload;
-      console.log(plantObj.watered_schedule);
 
       const newPlant = new Plant(createPersonalizedSchedule(plantObj));
-      state.plants.push(newPlant);
+      state.plants.push({ ...newPlant });
       localStorage.setItem('garden', JSON.stringify(state.plants));
     },
-    editPlant: (state, action) => {},
+    editPlant: (state, action) => {
+      const editedPlant = editPlantAction(state, action);
+      void {
+        ...state,
+        plants: [...editedPlant],
+      };
+    },
+
     caringPlant: (state, action) => {
       const caredPlant = plantAction(state, action);
       void {

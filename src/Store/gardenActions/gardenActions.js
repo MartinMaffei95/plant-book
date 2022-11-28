@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { config } from '../../Config/config';
+import { Plant } from '../../Models/plant/plant.model';
 import { baseSchedules } from '../../Models/schedule/baseSchedules';
 import { formatingDate } from '../../utils/formatingDate';
 import { dictionaryDay, nWeekOfMounth } from '../../utils/isLastWeek';
@@ -14,14 +15,42 @@ import { isSameDay, isSameOfThisDays, isToday } from '../../utils/isToday';
 //   }
 // }
 
+export const editPlantAction = (state, action) => {
+  //   {
+  //   type: 'garden/editPlant',
+  //   payload: {
+  //     plant_name: 'Menta',                   //=> ACTUAL NAME OF PLANT
+  //     plant_edited: '{}'                     //=> EDITED PLANT OBJ
+  //   }
+  // }
+
+  const { plant_id } = action.payload;
+  const plantFinded = state.plants.map((p) => {
+    // ## find the plant by name
+
+    if (p.id === plant_id) {
+      const newPlant = new Plant(
+        createPersonalizedSchedule(action.payload.plant)
+      );
+
+      const p_index = state.plants.indexOf(p);
+      state.plants[p_index] = { ...newPlant }; // this plant now is the plant who is recived for action.payload.plant
+      localStorage.setItem('garden', JSON.stringify(state.plants));
+    }
+
+    return p;
+  });
+  return plantFinded;
+};
+
 export const plantAction = (state, action) => {
   //recibe state (to change) plant name(unic value) and field name to edit
   //find the plant who need to change state
-  const { plant_name, field_name, actualSchedule } = action.payload;
+  const { plant_id, field_name, actualSchedule } = action.payload;
 
   const plantFinded = state.plants.map((p) => {
     // ## find the plant by name
-    if (p.plant_name === plant_name) {
+    if (p.id === plant_id) {
       // ## getting 'next_event' and 'step' value vor  the plant
       const actualDateEvt = moment(p[actualSchedule]['next_event']);
       const step = p[actualSchedule]['step_repeat'];
@@ -184,7 +213,6 @@ export const plantAction = (state, action) => {
       localStorage.setItem('garden', JSON.stringify(state.plants));
     }
 
-    // console.log(nextMonth);
     return p;
   });
   return plantFinded;

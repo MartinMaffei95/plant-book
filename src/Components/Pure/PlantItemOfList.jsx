@@ -24,6 +24,7 @@ const PlantItemOfList = ({ plant }) => {
   const {
     plant_name,
     plant_type,
+    id,
     assigned_color,
     last_watering,
     last_fertilization,
@@ -49,7 +50,7 @@ const PlantItemOfList = ({ plant }) => {
         }}
       ></div>
       <div>
-        <Link to={`/garden/${plant_name.toLowerCase()}`}>{plant_name}</Link>
+        <Link to={`/garden/${id}`}>{plant_name}</Link>
       </div>
       {/* <div>{plant_type}</div> */}
       <div className="flex gap-2 justify-end">
@@ -63,6 +64,7 @@ const PlantItemOfList = ({ plant }) => {
               dispatch(
                 caringPlant({
                   plant_name,
+                  plant_id: id,
                   field_name: 'last_watering',
                   actualSchedule: 'watered_schedule',
                 })
@@ -80,6 +82,8 @@ const PlantItemOfList = ({ plant }) => {
               dispatch(
                 caringPlant({
                   plant_name,
+                  plant_id: id,
+
                   field_name: 'last_fertilization',
                   actualSchedule: 'fertilization_schedule',
                 })
@@ -97,6 +101,8 @@ const PlantItemOfList = ({ plant }) => {
               dispatch(
                 caringPlant({
                   plant_name,
+                  plant_id: id,
+
                   field_name: 'last_prune',
                   actualSchedule: 'prune_schedule',
                 })
@@ -117,6 +123,8 @@ const PlantItemOfList = ({ plant }) => {
               dispatch(
                 caringPlant({
                   plant_name,
+                  plant_id: id,
+
                   field_name: 'last_application_of_insecticide',
                   actualSchedule: 'insecticide_schedule',
                 })
@@ -134,6 +142,8 @@ const PlantItemOfList = ({ plant }) => {
               dispatch(
                 caringPlant({
                   plant_name,
+                  plant_id: id,
+
                   field_name: 'last_application_of_fungicide',
                   actualSchedule: 'fungal_schedule',
                 })

@@ -9,7 +9,6 @@ import { addPlant, editPlant } from '../../Store/gardenReducer';
 
 import { types } from '../../Models/configs/types.enum';
 // import { schedulles } from '../../Models/configs/schedulles.enum';
-
 import * as Yup from 'yup';
 import moment from 'moment/moment';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -17,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { baseSchedules } from '../../Models/schedule/baseSchedules';
 import { useNavigate, useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const NewPlant = ({ initValues = null, isEditing = false }) => {
   const { plant_id } = useParams();
@@ -24,6 +24,7 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
   const initialValues = initValues || {
     plant_name: '',
     plant_type: '',
+    id: uuidv4(),
     planting_date: moment(),
     harvest_date: moment(),
     assigned_color: '',
@@ -42,7 +43,12 @@ const NewPlant = ({ initValues = null, isEditing = false }) => {
 
   const onSubmit = (e) => {
     if (isEditing) {
-      dispatch(editPlant(values));
+      dispatch(
+        editPlant({
+          plant_id: plant_id,
+          plant: values,
+        })
+      );
       navigate(`/garden/${plant_id}`);
     } else {
       dispatch(addPlant(values));

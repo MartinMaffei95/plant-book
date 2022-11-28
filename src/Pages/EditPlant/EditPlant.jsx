@@ -14,6 +14,7 @@ const EditPlant = () => {
   console.log(thisPlant);
   const initialValues = {
     plant_name: thisPlant?.plant_name,
+    id: thisPlant?.id,
     plant_type: thisPlant?.plant_type?.name,
     planting_date: moment(thisPlant?.planting_date, config.date_format),
     harvest_date: moment(thisPlant?.harvest_date, config.date_format),

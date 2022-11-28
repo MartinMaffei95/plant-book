@@ -19,7 +19,7 @@ export class Plant {
 
   constructor(plant) {
     this.plant_name = plant.plant_name || ''; // string
-    this.id = plant.plant_name.toLowerCase(); // integer
+    this.id = plant.id; // integer
     this.plant_type = plant.plant_type || null; // string or null (suculenta, cactus, flor, hortaliza, tuberculo)
     this.harvest_date = plant.harvest_date || null; // date or null
     this.planting_date = plant.planting_date || null; // date or null
