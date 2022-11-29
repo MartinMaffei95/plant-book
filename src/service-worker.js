@@ -89,3 +89,5 @@ self.addEventListener('push', async (evt) => {
     body: pushResponse.message,
   });
 });
+
+self.registration.showNotification('probando1', { body: 'intento' });
