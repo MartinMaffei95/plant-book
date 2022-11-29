@@ -79,7 +79,9 @@ self.addEventListener('install', async (evt) => {
 });
 
 self.addEventListener('activate', async (evt) => {
-  await self.registration.showNotification('activado', { body: 'actualiza' });
+  await self.registration.showNotification('La app esta actualizada', {
+    body: 'La app esta actualizada',
+  });
 });
 
 self.addEventListener('push', async (evt) => {
@@ -90,4 +92,11 @@ self.addEventListener('push', async (evt) => {
   });
 });
 
-self.registration.showNotification('probando1', { body: 'intento' });
+navigator.serviceWorker.register('sw.js');
+Notification.requestPermission(function (result) {
+  if (result === 'granted') {
+    navigator.serviceWorker.ready.then(function (registration) {
+      registration.showNotification('Notification with ServiceWorker');
+    });
+  }
+});
