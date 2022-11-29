@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 const TodayTasks = () => {
   const garden = useSelector((state) => state.garden.plants);
+  const [notificationStatus, setNotificationStatus] = useState('');
   // const buttonClick = () => {
   //   addNotification({
   //     title: 'Warning',
@@ -43,6 +44,47 @@ const TodayTasks = () => {
     // want to be respectful there is no need to bother them anymore.
   }
 
+  function checkNotificationPromise() {
+    try {
+      Notification.requestPermission().then();
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function askNotificationPermission() {
+    // función para pedir los permisos
+    function handlePermission(permission) {
+      // configura el botón para que se muestre u oculte, dependiendo de lo que
+      // responda el usuario
+      if (
+        Notification.permission === 'denied' ||
+        Notification.permission === 'default'
+      ) {
+        setNotificationStatus('denied');
+      } else {
+        setNotificationStatus('granted');
+      }
+    }
+
+    // Comprobemos si el navegador admite notificaciones.
+    if (!('Notification' in window)) {
+      console.log('Este navegador no admite notificaciones.');
+    } else {
+      if (checkNotificationPromise()) {
+        Notification.requestPermission().then((permission) => {
+          handlePermission(permission);
+        });
+      } else {
+        Notification.requestPermission(function (permission) {
+          handlePermission(permission);
+        });
+      }
+    }
+  }
+
   // const [filter, setFilter] = useState('all');
 
   // 2022-11-19T20:07:19.459Z
@@ -58,6 +100,28 @@ const TodayTasks = () => {
         <button className="bg-red-400 m-2 p-2" onClick={notifyMe}>
           Notify me!
         </button>
+      </div>
+      <div>
+        El usuario acepta notificaciones?
+        <div>
+          <button onClick={askNotificationPermission}>
+            Habilitar notificaciones
+          </button>
+          {notificationStatus ===
+          (
+            <button onClick={askNotificationPermission}>
+              Habilitar notificaciones
+            </button>
+          ) ? (
+            'NO SE PREGUNTO AUN'
+          ) : notificationStatus === 'granted' ? (
+            'SI'
+          ) : notificationStatus === 'denied' ? (
+            <button onClick={askNotificationPermission}>
+              Habilitar notificaciones
+            </button>
+          ) : null}
+        </div>
       </div>
       <select
         name="filter"
