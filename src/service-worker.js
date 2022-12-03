@@ -92,6 +92,12 @@ self.addEventListener('push', async (evt) => {
   });
 });
 
+self.registration.showNotification('probandoaaaaaaaaa', {
+  body: 'intentoaaaaaa',
+});
+
+console.log('asda');
+
 navigator.serviceWorker.register('sw.js');
 Notification.requestPermission(function (result) {
   if (result === 'granted') {
