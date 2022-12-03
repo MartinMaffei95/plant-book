@@ -70,6 +70,14 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('message', async (event) => {
+  if (event.data && event.data.type === 'MENSAJE') {
+    await self.registration.showNotification('NMENSAJE', {
+      body: event.data.payload,
+    });
+  }
+});
+
 // Any other custom service worker logic can go here.
 
 self.addEventListener('install', async (evt) => {

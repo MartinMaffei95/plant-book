@@ -9,6 +9,10 @@ export const isPending = (lastCaring, schedule) => {
     (isTodayWork(next_event) && !isToday(lastCaring)) ||
     (isToday(init_date) && !isToday(lastCaring))
   )
-    return true;
+    navigator.serviceWorker.controller.postMessage({
+      type: 'Tenes una tarea pendiente',
+      payload: 'Mi tarea',
+    });
+  return true;
   return false;
 };
