@@ -14,6 +14,7 @@ function App() {
       <Updater />
       {/* ## ROUTER ## */}
       {/* <Notifications /> */}
+      a
       <RouterProvider router={router} />
     </div>
   );
