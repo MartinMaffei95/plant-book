@@ -96,6 +96,7 @@ self.addEventListener('message', async (event) => {
     await self.registration.showNotification(event.data.payload.title, {
       body: event.data.payload.body,
       icon: '../apple-icon-180x180.png',
+      badge: '../apple-icon-72x72.png',
     });
   }
 });
