@@ -15,31 +15,9 @@ const TodayTasks = () => {
 
   const [filter, setFilter] = useState('ALL');
 
-  function randomNotification() {
-    var notifTitle = 'titleeee';
-    var options = {
-      body: 'bodi',
-      // icon: notifImg,
-    };
-    var notif = new Notification(notifTitle, options);
-    console.log(notif);
-    // setTimeout(randomNotification, 3000);
-  }
-
-  function sendNotif(e) {
-    Notification.requestPermission().then(function (result) {
-      if (result === 'granted') {
-        randomNotification();
-      }
-    });
-  }
-
   return (
     <>
       <h3>Tareas programadas para hoy: </h3>
-      <div>
-        <button onClick={sendNotif}>Notificarrrrr</button>
-      </div>
 
       <select
         name="filter"

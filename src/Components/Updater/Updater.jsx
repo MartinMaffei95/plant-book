@@ -4,7 +4,7 @@ import { withServiceWorkerUpdater } from '@3m1/service-worker-updater';
 const Updater = (props) => {
   const { newServiceWorkerDetected, onLoadNewServiceWorkerAccept } = props;
   return newServiceWorkerDetected ? (
-    <div className="bg-red-400 w-full h-4 ">
+    <div className="bg-red-400 w-full h-12 ">
       New version detected.
       <button
         className="bg-red-800 text-neutral-100 "
