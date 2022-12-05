@@ -19,6 +19,7 @@ import getColor from '../../utils/getColor';
 import { isPending } from '../../utils/isPending';
 import { isNonScheduled } from '../../utils/isNonScheduled';
 import { isToday } from '../../utils/isToday';
+import { sendNotification } from '../../utils/sendNotification';
 
 const PlantItemOfList = ({ plant }) => {
   const {
@@ -56,7 +57,7 @@ const PlantItemOfList = ({ plant }) => {
       <div className="flex gap-2 justify-end">
         <Icon
           itsDoneToday={isToday(last_watering) ? true : false}
-          isPending={isPending(last_watering, watered_schedule)}
+          isPending={isPending(last_watering, watered_schedule, plant_name)}
           nonScheduled={isNonScheduled(watered_schedule)}
         >
           <GiWaterDrop
@@ -74,7 +75,11 @@ const PlantItemOfList = ({ plant }) => {
         </Icon>
         <Icon
           itsDoneToday={isToday(last_fertilization) ? true : false}
-          isPending={isPending(last_fertilization, fertilization_schedule)}
+          isPending={isPending(
+            last_fertilization,
+            fertilization_schedule,
+            plant_name
+          )}
           nonScheduled={isNonScheduled(fertilization_schedule)}
         >
           <GiFertilizerBag
@@ -93,7 +98,7 @@ const PlantItemOfList = ({ plant }) => {
         </Icon>
         <Icon
           itsDoneToday={isToday(last_prune) ? true : false}
-          isPending={isPending(last_prune, prune_schedule)}
+          isPending={isPending(last_prune, prune_schedule, plant_name)}
           nonScheduled={isNonScheduled(prune_schedule)}
         >
           <GiGardeningShears
@@ -114,7 +119,8 @@ const PlantItemOfList = ({ plant }) => {
           itsDoneToday={isToday(last_application_of_insecticide) ? true : false}
           isPending={isPending(
             last_application_of_insecticide,
-            insecticide_schedule
+            insecticide_schedule,
+            plant_name
           )}
           nonScheduled={isNonScheduled(insecticide_schedule)}
         >
@@ -134,7 +140,11 @@ const PlantItemOfList = ({ plant }) => {
         </Icon>
         <Icon
           itsDoneToday={isToday(last_application_of_fungicide) ? true : false}
-          isPending={isPending(last_application_of_fungicide, fungal_schedule)}
+          isPending={isPending(
+            last_application_of_fungicide,
+            fungal_schedule,
+            plant_name
+          )}
           nonScheduled={isNonScheduled(fungal_schedule)}
         >
           <GiMushrooms
