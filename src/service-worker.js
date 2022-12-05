@@ -70,14 +70,6 @@ self.addEventListener('message', (event) => {
   }
 });
 
-self.addEventListener('message', async (event) => {
-  if (event.data && event.data.type === 'MENSAJE') {
-    await self.registration.showNotification('NMENSAJE', {
-      body: event.data.payload,
-    });
-  }
-});
-
 // Any other custom service worker logic can go here.
 
 self.addEventListener('install', async (evt) => {
@@ -98,4 +90,12 @@ self.addEventListener('push', async (evt) => {
   await self.registration.showNotification(pushResponse.title, {
     body: pushResponse.message,
   });
+});
+self.addEventListener('message', async (event) => {
+  if (event.data && event.data.type === 'PUSH_MESSAGE') {
+    await self.registration.showNotification(event.data.payload.title, {
+      body: event.data.payload.body,
+      icon: '../apple-icon-180x180.png',
+    });
+  }
 });
