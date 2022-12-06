@@ -11,8 +11,6 @@ export const isPending = (lastCaring, schedule, plant_name) => {
     (isTodayWork(next_event) && !isToday(lastCaring)) ||
     (isToday(init_date) && !isToday(lastCaring))
   ) {
-    sendNotification('Tarea pendiente', `${plant_name} necesita cuidados`);
-
     return true;
   }
 

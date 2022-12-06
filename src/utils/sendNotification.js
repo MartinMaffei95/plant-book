@@ -1,5 +1,5 @@
 export const sendNotification = (title = '', body = '') => {
-  navigator.serviceWorker.controller.postMessage({
+  navigator?.serviceWorker?.controller?.postMessage({
     type: 'PUSH_MESSAGE',
     payload: {
       title,

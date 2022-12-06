@@ -6,8 +6,6 @@ import moment from 'moment';
 import { Plant } from '../../Models/plant/plant.model';
 const Garden = () => {
   const garden = useSelector((state) => state.garden);
-  console.log(garden);
-
   return (
     <>
       <h3>Todas mis plantas </h3>

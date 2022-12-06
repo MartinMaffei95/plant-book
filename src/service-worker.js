@@ -7,6 +7,7 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
+import { AiFillWindows } from 'react-icons/ai';
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
@@ -78,11 +79,11 @@ self.addEventListener('install', async (evt) => {
   });
 });
 
-self.addEventListener('activate', async (evt) => {
-  await self.registration.showNotification('La app esta actualizada', {
-    body: 'La app esta actualizada',
-  });
-});
+// self.addEventListener('activate', async (evt) => {
+//   await self.registration.showNotification('La app esta actualizada', {
+//     body: 'La app esta actualizada',
+//   });
+// });
 
 self.addEventListener('push', async (evt) => {
   const data = evt.data.json();
@@ -97,6 +98,7 @@ self.addEventListener('message', async (event) => {
       body: event.data.payload.body,
       icon: '../apple-icon-180x180.png',
       badge: '../apple-icon-72x72.png',
+      renotify: true,
     });
   }
 });
